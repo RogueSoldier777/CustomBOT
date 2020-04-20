@@ -46,8 +46,60 @@ async def user(ctx, member: discord.Member = None):
     embed.add_field(name='Name:', value=member.name, inline=True)
     embed.add_field(name='Status:', value=status, inline=True)
     embed.add_field(name='Joined At:', value=joined, inline=True)
-    embed.set_footer(text='Made by Rogue#2208')
     embed.add_field(name='Rank:', value=role, inline=True)
+    embed.set_thumbnail(url=ctx.author.avatar_url)
+    embed.set_footer(text='Made by Rogue#2208')
+
+    await ctx.channel.send(embed=embed)
+
+@bot.command()
+async def ban(ctx, member:discord.User = None, reason = None):
+    if member == None or member == ctx.message.author:
+        embed = discord.Embed(name='You cannot ban yourself!', description='Why would you even want to?')
+        embed.set_footer(text='Made by Rogue#2208')
+        
+        await ctx.channel.send(embed=embed)
+        return
+
+    if reason == None:
+        reason = 'no reason at all!'
+
+    embed = discord.Embed(name=f'{member} has been banned!', description=f'For: {reason}')
+    embed.set_footer(text='Made by Rogue#2208')
+
+    message = f'You have been banned from {ctx.guild.name} for {reason}!'
+    await member.send(message)
+    await ctx.guild.ban(member)
+    await ctx.channel.send(embed=embed)
+
+@bot.command()
+async def kick(ctx, member:discord.User = None, reason = None):
+    if member == None or member == ctx.message.author:
+        embed = discord.Embed(title=config.botname)
+        embed.add_field(name='You cannnot kick youself!')
+        embed.set_footer(text='Made by Rogue#2208')
+        
+        await ctx.channel.send(embed=embed)
+        return
+
+    if reason == None:
+        reason = 'no reason at all!'
+
+    embed = discord.Embed(title=config.botname)
+    embed.add_field(name=f'Kicked: {member}', value=f'For: {reason}')
+    embed.set_footer(text='Made by Rogue#2208')
+
+    message = f'You have been kicked from {ctx.guild.name} for {reason}!'
+    await member.send(message)
+    await ctx.guild.kick(member)
+    await ctx.channel.send(embed=embed)
+
+@bot.command()
+async def botinfo(ctx):
+    embed = discord.Embed(title='CustomBOT.')
+    embed.add_field(name='GitHub', value='https://www.github.com/RogueSoldier777/CustomBOT', inline=True)
+    embed.add_field(name='Discord', value='@Rogue#2208')
+    embed.set_footer(text='Made by Rogue#2208')
 
     await ctx.channel.send(embed=embed)
 
