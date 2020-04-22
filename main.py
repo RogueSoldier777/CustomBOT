@@ -96,11 +96,38 @@ async def kick(ctx, member:discord.User = None, reason = None):
 
 @bot.command()
 async def botinfo(ctx):
-    embed = discord.Embed(title='CustomBOT.')
-    embed.add_field(name='GitHub', value='https://www.github.com/RogueSoldier777/CustomBOT', inline=True)
-    embed.add_field(name='Discord', value='@Rogue#2208')
+    embed = discord.Embed(title=config.botname)
+    embed.add_field(name='Prefix', value=config.prefix)
+    embed.add_field(name='Logging', value='True')
     embed.set_footer(text='Made by Rogue#2208')
 
     await ctx.channel.send(embed=embed)
+
+@bot.command()
+async def sourcecode(ctx):
+    embed = discord.Embed(title='CustomBOT')
+    embed.add_field(name='GitHub', value='https://www.github.com/RogueSoldier777/CustomBOT.')
+    embed.set_footer(text='Made by Rogue#2208')
+
+    await ctx.channel.send(embed=embed)
+
+@bot.command()
+async def serverinfo(ctx):
+    textchannels = len(ctx.guild.channels) - len(ctx.guild.voice_channels)
+
+    embed = discord.Embed(title=ctx.guild.name)
+    embed.add_field(name='Name:', value=ctx.guild.name, inline=True)
+    embed.add_field(name='Members:', value=ctx.guild.member_count)
+    embed.add_field(name='Owner:', value=ctx.guild.owner, inline=True)
+    embed.add_field(name='Server ID:', value=ctx.guild.id)
+    embed.add_field(name='Channels:', value=len(ctx.guild.channels))
+    embed.add_field(name='Text Channels:', value=textchannels)
+    embed.add_field(name='Voice Channels:', value=len(ctx.guild.voice_channels))
+
+    embed.set_thumbnail(url=ctx.guild.icon_url)
+    embed.set_footer(text='Made by Rogue#2208')
+
+    await ctx.channel.send(embed=embed)
+
 
 bot.run(config.token)
