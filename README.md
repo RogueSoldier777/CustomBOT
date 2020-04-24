@@ -10,6 +10,8 @@ A Discord bot made in Python for people who don't know how to program.
 ## Installation
 1. `git clone https://www.github.com/RogueSoldier777/CustomBOT.git`
 
+2. `cd CustomBOT`
+
 2. `pip3 install -r requirements.txt`
 
 3. Run the `config.py` file to setup your bot instance.
